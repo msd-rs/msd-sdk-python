@@ -8,22 +8,22 @@ from pymsd.proto.schema_pb2 import *
 
 try:
     from pymsd.pandas import *
-except ImportError:
+except Exception:
     pass
 
 try:
     from pymsd.polars import * 
-except ImportError:
+except Exception:
     pass
 
 try:
     from pymsd.numpy import * 
-except ImportError:
+except Exception:
     pass
 
 try:
     from pymsd.pyarrow import * 
-except ImportError:
+except Exception:
     pass
 
 from pymsd.easy import *

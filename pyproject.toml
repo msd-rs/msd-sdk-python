@@ -1,9 +1,10 @@
 [tool.poetry]
 name = "pymsd"
-version = "0.1.2"
+version = "0.1.3"
 description = "the python sdk of msd-rs"
 authors = ["LiJia <lijia.c@gmail.com>"]
 readme='README.md'
+repository='https://github.com/msd-rs/msd-sdk-python'
 
 [tool.poetry.dependencies]
 python = "^3.8"
