@@ -18,8 +18,8 @@ def msd_query(host: str, sql: str) -> pymsd.DataFrame:
 
     assert _SYNC_CHANNEL is not None
 
-    stub = pymsd.DataFrameServiceStub(_SYNC_CHANNEL)
-    req = pymsd.GetDataFrameRequest()
+    stub = pymsd.ApiV1Stub(_SYNC_CHANNEL)
+    req = pymsd.SqlRequest()
     req.sql = sql
     resp = stub.Get(req)
     return resp.values
@@ -34,8 +34,8 @@ async def msd_async_query(host: str, sql: str) -> pymsd.DataFrame:
     if _ASYNC_CHANNEL is None:
         _ASYNC_CHANNEL = grpc.aio.insecure_channel(_HOST, None, 2)
 
-    stub = pymsd.DataFrameServiceStub(_ASYNC_CHANNEL)
-    req = pymsd.GetDataFrameRequest()
+    stub = pymsd.ApiV1Stub(_ASYNC_CHANNEL)
+    req = pymsd.SqlRequest()
     req.sql = sql
     resp = await stub.Get(req)
     return resp.values

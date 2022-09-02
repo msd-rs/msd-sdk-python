@@ -1,6 +1,6 @@
 
-from pymsd.proto.apiv1_pb2 import *
-from pymsd.proto.apiv1_pb2_grpc import *
+from pymsd.proto.msd_pb2 import *
+from pymsd.proto.msd_pb2_grpc import *
 from pymsd.proto.dataframe_pb2 import *
 from pymsd.proto.schema_pb2 import *
 

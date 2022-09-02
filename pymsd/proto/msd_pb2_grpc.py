@@ -2,10 +2,10 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from pymsd.proto import apiv1_pb2 as pymsd_dot_proto_dot_apiv1__pb2
+from pymsd.proto import msd_pb2 as pymsd_dot_proto_dot_msd__pb2
 
 
-class DataFrameServiceStub(object):
+class ApiV1Stub(object):
     """数据服务
     """
 
@@ -16,38 +16,43 @@ class DataFrameServiceStub(object):
             channel: A grpc.Channel.
         """
         self.Get = channel.unary_unary(
-                '/apiv1.DataFrameService/Get',
-                request_serializer=pymsd_dot_proto_dot_apiv1__pb2.GetDataFrameRequest.SerializeToString,
-                response_deserializer=pymsd_dot_proto_dot_apiv1__pb2.GetDataFrameResponse.FromString,
+                '/msd.ApiV1/Get',
+                request_serializer=pymsd_dot_proto_dot_msd__pb2.GetDataFrameRequest.SerializeToString,
+                response_deserializer=pymsd_dot_proto_dot_msd__pb2.GetDataFrameResponse.FromString,
                 )
         self.ListObject = channel.unary_unary(
-                '/apiv1.DataFrameService/ListObject',
-                request_serializer=pymsd_dot_proto_dot_apiv1__pb2.ListObjectRequest.SerializeToString,
-                response_deserializer=pymsd_dot_proto_dot_apiv1__pb2.ListObjectResponse.FromString,
+                '/msd.ApiV1/ListObject',
+                request_serializer=pymsd_dot_proto_dot_msd__pb2.ListObjectRequest.SerializeToString,
+                response_deserializer=pymsd_dot_proto_dot_msd__pb2.ListObjectResponse.FromString,
                 )
         self.Update = channel.stream_unary(
-                '/apiv1.DataFrameService/Update',
-                request_serializer=pymsd_dot_proto_dot_apiv1__pb2.UpdateDataFrameRequest.SerializeToString,
-                response_deserializer=pymsd_dot_proto_dot_apiv1__pb2.UpdateDataFrameResponse.FromString,
+                '/msd.ApiV1/Update',
+                request_serializer=pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameRequest.SerializeToString,
+                response_deserializer=pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameResponse.FromString,
                 )
         self.GetTable = channel.unary_unary(
-                '/apiv1.DataFrameService/GetTable',
-                request_serializer=pymsd_dot_proto_dot_apiv1__pb2.GetTableRequest.SerializeToString,
-                response_deserializer=pymsd_dot_proto_dot_apiv1__pb2.GetTableResponse.FromString,
+                '/msd.ApiV1/GetTable',
+                request_serializer=pymsd_dot_proto_dot_msd__pb2.GetTableRequest.SerializeToString,
+                response_deserializer=pymsd_dot_proto_dot_msd__pb2.GetTableResponse.FromString,
                 )
         self.UpdateMeta = channel.unary_unary(
-                '/apiv1.DataFrameService/UpdateMeta',
-                request_serializer=pymsd_dot_proto_dot_apiv1__pb2.UpdateMetaRequest.SerializeToString,
-                response_deserializer=pymsd_dot_proto_dot_apiv1__pb2.UpdateMetaResponse.FromString,
+                '/msd.ApiV1/UpdateMeta',
+                request_serializer=pymsd_dot_proto_dot_msd__pb2.UpdateMetaRequest.SerializeToString,
+                response_deserializer=pymsd_dot_proto_dot_msd__pb2.UpdateMetaResponse.FromString,
                 )
         self.Forward = channel.unary_unary(
-                '/apiv1.DataFrameService/Forward',
-                request_serializer=pymsd_dot_proto_dot_apiv1__pb2.ForwardRequest.SerializeToString,
-                response_deserializer=pymsd_dot_proto_dot_apiv1__pb2.ForwardResponse.FromString,
+                '/msd.ApiV1/Forward',
+                request_serializer=pymsd_dot_proto_dot_msd__pb2.ForwardRequest.SerializeToString,
+                response_deserializer=pymsd_dot_proto_dot_msd__pb2.ForwardResponse.FromString,
+                )
+        self.SqlQuery = channel.unary_unary(
+                '/msd.ApiV1/SqlQuery',
+                request_serializer=pymsd_dot_proto_dot_msd__pb2.SqlRequest.SerializeToString,
+                response_deserializer=pymsd_dot_proto_dot_msd__pb2.SqlResponse.FromString,
                 )
 
 
-class DataFrameServiceServicer(object):
+class ApiV1Servicer(object):
     """数据服务
     """
 
@@ -93,47 +98,59 @@ class DataFrameServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SqlQuery(self, request, context):
+        """执行SQL
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
-def add_DataFrameServiceServicer_to_server(servicer, server):
+
+def add_ApiV1Servicer_to_server(servicer, server):
     rpc_method_handlers = {
             'Get': grpc.unary_unary_rpc_method_handler(
                     servicer.Get,
-                    request_deserializer=pymsd_dot_proto_dot_apiv1__pb2.GetDataFrameRequest.FromString,
-                    response_serializer=pymsd_dot_proto_dot_apiv1__pb2.GetDataFrameResponse.SerializeToString,
+                    request_deserializer=pymsd_dot_proto_dot_msd__pb2.GetDataFrameRequest.FromString,
+                    response_serializer=pymsd_dot_proto_dot_msd__pb2.GetDataFrameResponse.SerializeToString,
             ),
             'ListObject': grpc.unary_unary_rpc_method_handler(
                     servicer.ListObject,
-                    request_deserializer=pymsd_dot_proto_dot_apiv1__pb2.ListObjectRequest.FromString,
-                    response_serializer=pymsd_dot_proto_dot_apiv1__pb2.ListObjectResponse.SerializeToString,
+                    request_deserializer=pymsd_dot_proto_dot_msd__pb2.ListObjectRequest.FromString,
+                    response_serializer=pymsd_dot_proto_dot_msd__pb2.ListObjectResponse.SerializeToString,
             ),
             'Update': grpc.stream_unary_rpc_method_handler(
                     servicer.Update,
-                    request_deserializer=pymsd_dot_proto_dot_apiv1__pb2.UpdateDataFrameRequest.FromString,
-                    response_serializer=pymsd_dot_proto_dot_apiv1__pb2.UpdateDataFrameResponse.SerializeToString,
+                    request_deserializer=pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameRequest.FromString,
+                    response_serializer=pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameResponse.SerializeToString,
             ),
             'GetTable': grpc.unary_unary_rpc_method_handler(
                     servicer.GetTable,
-                    request_deserializer=pymsd_dot_proto_dot_apiv1__pb2.GetTableRequest.FromString,
-                    response_serializer=pymsd_dot_proto_dot_apiv1__pb2.GetTableResponse.SerializeToString,
+                    request_deserializer=pymsd_dot_proto_dot_msd__pb2.GetTableRequest.FromString,
+                    response_serializer=pymsd_dot_proto_dot_msd__pb2.GetTableResponse.SerializeToString,
             ),
             'UpdateMeta': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateMeta,
-                    request_deserializer=pymsd_dot_proto_dot_apiv1__pb2.UpdateMetaRequest.FromString,
-                    response_serializer=pymsd_dot_proto_dot_apiv1__pb2.UpdateMetaResponse.SerializeToString,
+                    request_deserializer=pymsd_dot_proto_dot_msd__pb2.UpdateMetaRequest.FromString,
+                    response_serializer=pymsd_dot_proto_dot_msd__pb2.UpdateMetaResponse.SerializeToString,
             ),
             'Forward': grpc.unary_unary_rpc_method_handler(
                     servicer.Forward,
-                    request_deserializer=pymsd_dot_proto_dot_apiv1__pb2.ForwardRequest.FromString,
-                    response_serializer=pymsd_dot_proto_dot_apiv1__pb2.ForwardResponse.SerializeToString,
+                    request_deserializer=pymsd_dot_proto_dot_msd__pb2.ForwardRequest.FromString,
+                    response_serializer=pymsd_dot_proto_dot_msd__pb2.ForwardResponse.SerializeToString,
+            ),
+            'SqlQuery': grpc.unary_unary_rpc_method_handler(
+                    servicer.SqlQuery,
+                    request_deserializer=pymsd_dot_proto_dot_msd__pb2.SqlRequest.FromString,
+                    response_serializer=pymsd_dot_proto_dot_msd__pb2.SqlResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'apiv1.DataFrameService', rpc_method_handlers)
+            'msd.ApiV1', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class DataFrameService(object):
+class ApiV1(object):
     """数据服务
     """
 
@@ -148,9 +165,9 @@ class DataFrameService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/apiv1.DataFrameService/Get',
-            pymsd_dot_proto_dot_apiv1__pb2.GetDataFrameRequest.SerializeToString,
-            pymsd_dot_proto_dot_apiv1__pb2.GetDataFrameResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/msd.ApiV1/Get',
+            pymsd_dot_proto_dot_msd__pb2.GetDataFrameRequest.SerializeToString,
+            pymsd_dot_proto_dot_msd__pb2.GetDataFrameResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -165,9 +182,9 @@ class DataFrameService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/apiv1.DataFrameService/ListObject',
-            pymsd_dot_proto_dot_apiv1__pb2.ListObjectRequest.SerializeToString,
-            pymsd_dot_proto_dot_apiv1__pb2.ListObjectResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/msd.ApiV1/ListObject',
+            pymsd_dot_proto_dot_msd__pb2.ListObjectRequest.SerializeToString,
+            pymsd_dot_proto_dot_msd__pb2.ListObjectResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -182,9 +199,9 @@ class DataFrameService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_unary(request_iterator, target, '/apiv1.DataFrameService/Update',
-            pymsd_dot_proto_dot_apiv1__pb2.UpdateDataFrameRequest.SerializeToString,
-            pymsd_dot_proto_dot_apiv1__pb2.UpdateDataFrameResponse.FromString,
+        return grpc.experimental.stream_unary(request_iterator, target, '/msd.ApiV1/Update',
+            pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameRequest.SerializeToString,
+            pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -199,9 +216,9 @@ class DataFrameService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/apiv1.DataFrameService/GetTable',
-            pymsd_dot_proto_dot_apiv1__pb2.GetTableRequest.SerializeToString,
-            pymsd_dot_proto_dot_apiv1__pb2.GetTableResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/msd.ApiV1/GetTable',
+            pymsd_dot_proto_dot_msd__pb2.GetTableRequest.SerializeToString,
+            pymsd_dot_proto_dot_msd__pb2.GetTableResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -216,9 +233,9 @@ class DataFrameService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/apiv1.DataFrameService/UpdateMeta',
-            pymsd_dot_proto_dot_apiv1__pb2.UpdateMetaRequest.SerializeToString,
-            pymsd_dot_proto_dot_apiv1__pb2.UpdateMetaResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/msd.ApiV1/UpdateMeta',
+            pymsd_dot_proto_dot_msd__pb2.UpdateMetaRequest.SerializeToString,
+            pymsd_dot_proto_dot_msd__pb2.UpdateMetaResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -233,8 +250,25 @@ class DataFrameService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/apiv1.DataFrameService/Forward',
-            pymsd_dot_proto_dot_apiv1__pb2.ForwardRequest.SerializeToString,
-            pymsd_dot_proto_dot_apiv1__pb2.ForwardResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/msd.ApiV1/Forward',
+            pymsd_dot_proto_dot_msd__pb2.ForwardRequest.SerializeToString,
+            pymsd_dot_proto_dot_msd__pb2.ForwardResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SqlQuery(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/msd.ApiV1/SqlQuery',
+            pymsd_dot_proto_dot_msd__pb2.SqlRequest.SerializeToString,
+            pymsd_dot_proto_dot_msd__pb2.SqlResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
