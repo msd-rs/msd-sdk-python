@@ -4,11 +4,11 @@ import base64
 import datetime
 import pandas
 
-host = '49.233.31.94:50052'
 
 def test_easy():
     host = '49.233.31.94:50052'
-    df = pymsd.msd_query(host, 'select * from kline1d.sh600000 limit 10')
+    #host = '127.0.0.1:50051'
+    df = pymsd.msd_query(host, 'select * from kline1d.SH600000 limit 10')
     assert len(df.columns) ==  7
     assert len(df.columns[0].datas) ==  8 * 10
 

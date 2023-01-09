@@ -30,6 +30,11 @@ class ApiV1Stub(object):
                 request_serializer=pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameRequest.SerializeToString,
                 response_deserializer=pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameResponse.FromString,
                 )
+        self.UpdateOnce = channel.unary_unary(
+                '/msd.ApiV1/UpdateOnce',
+                request_serializer=pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameRequest.SerializeToString,
+                response_deserializer=pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameResponse.FromString,
+                )
         self.GetTable = channel.unary_unary(
                 '/msd.ApiV1/GetTable',
                 request_serializer=pymsd_dot_proto_dot_msd__pb2.GetTableRequest.SerializeToString,
@@ -72,6 +77,13 @@ class ApiV1Servicer(object):
 
     def Update(self, request_iterator, context):
         """更新数据请求
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateOnce(self, request, context):
+        """单次更新数据请求，在某些场景，stream 更新可能无法使用，如 grpcweb
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -120,6 +132,11 @@ def add_ApiV1Servicer_to_server(servicer, server):
             ),
             'Update': grpc.stream_unary_rpc_method_handler(
                     servicer.Update,
+                    request_deserializer=pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameRequest.FromString,
+                    response_serializer=pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameResponse.SerializeToString,
+            ),
+            'UpdateOnce': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateOnce,
                     request_deserializer=pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameRequest.FromString,
                     response_serializer=pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameResponse.SerializeToString,
             ),
@@ -200,6 +217,23 @@ class ApiV1(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.stream_unary(request_iterator, target, '/msd.ApiV1/Update',
+            pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameRequest.SerializeToString,
+            pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateOnce(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/msd.ApiV1/UpdateOnce',
             pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameRequest.SerializeToString,
             pymsd_dot_proto_dot_msd__pb2.UpdateDataFrameResponse.FromString,
             options, channel_credentials,
