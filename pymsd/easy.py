@@ -12,16 +12,16 @@ def msd_query(host: str, sql: str) -> pymsd.DataFrame:
         if _SYNC_CHANNEL != None:
             _SYNC_CHANNEL.close()
         _HOST = host
-        _SYNC_CHANNEL = grpc.insecure_channel(_HOST, None, 2)
+        _SYNC_CHANNEL = grpc.insecure_channel(_HOST, None, None)
     if _SYNC_CHANNEL is None:
-        _SYNC_CHANNEL = grpc.insecure_channel(_HOST, None, 2)
+        _SYNC_CHANNEL = grpc.insecure_channel(_HOST, None, None)
 
     assert _SYNC_CHANNEL is not None
 
     stub = pymsd.ApiV1Stub(_SYNC_CHANNEL)
     req = pymsd.SqlRequest()
     req.sql = sql
-    resp = stub.Get(req)
+    resp = stub.SqlQuery(req)
     return resp.values
 
 async def msd_async_query(host: str, sql: str) -> pymsd.DataFrame:
@@ -37,5 +37,5 @@ async def msd_async_query(host: str, sql: str) -> pymsd.DataFrame:
     stub = pymsd.ApiV1Stub(_ASYNC_CHANNEL)
     req = pymsd.SqlRequest()
     req.sql = sql
-    resp = await stub.Get(req)
+    resp = await stub.SqlQuery(req)
     return resp.values
