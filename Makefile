@@ -20,3 +20,6 @@ dataframe.proto: ${MSD_PROTO}/dataframe.proto
 schema.proto: ${MSD_PROTO}/schema.proto
 	cp ${MSD_PROTO}/schema.proto ${PROTO_PATH}/schema.proto
 	sed  -i 's/^import \"/import \"pymsd\/proto\//g' ${PROTO_PATH}/schema.proto
+
+publish:
+	poetry publish --build
