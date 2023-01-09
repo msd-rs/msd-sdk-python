@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pymsd"
-version = "0.1.4"
+version = "0.2.1"
 description = "the python sdk of msd-rs"
 authors = ["LiJia <lijia.c@gmail.com>"]
 readme='README.md'
